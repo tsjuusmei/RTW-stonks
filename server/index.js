@@ -27,7 +27,7 @@ io.on('connection', (socket) => {
     // Broadcast when a user connects
     socket.broadcast
       .to(user.room)
-      .emit('message', formatMessage(botName, `${user.username} has bought the stonks! rocket m🚀`));
+      .emit('message', formatMessage(botName, `${user.username} has bought the stonks! rocket mAU🚀`));
 
     // Send users and room info
     io.to(user.room).emit('roomUsers', {
@@ -48,7 +48,10 @@ io.on('connection', (socket) => {
     const user = userLeave(socket.id);
 
     if (user) {
-      io.to(user.room).emit('message', formatMessage(botName, `${user.username} has sold their stonks, t`));
+      io.to(user.room).emit(
+        'message',
+        formatMessage(botName, `${user.username} has sold their stonks, he had paper hands! 😥`)
+      );
 
       // Send users and room info
       io.to(user.room).emit('roomUsers', {
@@ -59,4 +62,4 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => console.log(`Stonks running on port ${PORT}`));
