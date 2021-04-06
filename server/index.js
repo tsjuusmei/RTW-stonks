@@ -22,10 +22,10 @@ io.on('connection', (socket) => {
     socket.join(user.room);
 
     // Welcome current user
-    socket.emit('message', formatMessage(botName, 'Buy stonks!'));
+    socket.emit('message', formatMessage(botName, 'Buy stonks, to the moon!'));
 
     // Broadcast when a user connects
-    socket.broadcast.to(user.room).emit('message', formatMessage(botName, `${user.username} has joined the stonks`));
+    socket.broadcast.to(user.room).emit('message', formatMessage(botName, `${user.username} has bought the stonks`));
 
     // Send users and room info
     io.to(user.room).emit('roomUsers', {
