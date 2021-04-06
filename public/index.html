@@ -2,42 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-      integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="css/style.css" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="ie=edge" http-equiv="X-UA-Compatible" />
+    <link href="css/style.css" rel="stylesheet" />
     <title>StonksBot App</title>
   </head>
   <body>
-    <div class="join-container">
+    <section class="join-container">
       <header class="join-header">
-        <h1><i class="fas fa-smile"></i> StonksBot</h1>
+        <h1>🚀StonksBot</h1>
       </header>
       <main class="join-main">
         <form action="chat.html">
           <div class="form-control">
             <label for="username">Username</label>
-            <input type="text" name="username" id="username" placeholder="Enter username..." required />
+            <input id="username" name="username" placeholder="Enter stonkname..." required type="text" />
           </div>
           <div class="form-control">
-            <label for="room">Room</label>
-            <select name="room" id="room">
-              <option value="JavaScript">Bitcion</option>
-              <option value="Python">Ethereum</option>
-              <option value="PHP">Binance</option>
-              <option value="C#">Ripple</option>
-              <option value="Ruby">Cardano</option>
-              <option value="Java">Polkadot</option>
+            <label for="room">Stonktype</label>
+            <select id="room" name="room">
+              <option value="Bitcoin">Bitcoin</option>
+              <option value="Ethereum">Ethereum</option>
+              <option value="Binance">Binance</option>
+              <option value="Ripple">Ripple</option>
+              <option value="Cardano">Cardano</option>
+              <option value="Polkadot">Polkadot</option>
+              <option value="Mauroom">Mauroom</option>
             </select>
           </div>
-          <button type="submit" class="btn">Join Chat</button>
+          <button class="btn" type="submit">Go with us to the moon!</button>
         </form>
       </main>
-    </div>
+    </section>
   </body>
 </html>
