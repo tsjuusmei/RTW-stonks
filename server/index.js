@@ -25,7 +25,7 @@ io.on('connection', (socket) => {
     socket.emit('message', formatMessage(botName, 'Buy stonks!'));
 
     // Broadcast when a user connects
-    socket.broadcast.to(user.room).emit('message', formatMessage(botName, `${user.username} has joined the chat`));
+    socket.broadcast.to(user.room).emit('message', formatMessage(botName, `${user.username} has joined the stonks`));
 
     // Send users and room info
     io.to(user.room).emit('roomUsers', {
