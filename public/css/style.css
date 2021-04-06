@@ -134,7 +134,7 @@ a {
   color: #fff;
 }
 
-.join-header {
+.join-container > header {
   text-align: center;
   padding: 20px;
   background: var(--dark-color-a);
