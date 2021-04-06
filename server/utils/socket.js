@@ -11,7 +11,7 @@ const initSocketIO = (server, newSession) => {
   io.on('connection', (socket) => {
     let user = userJoin(socket.id, socket.handshake.session.username)
     console.log(user)
-    å
+
     // Welcome current user
     socket.emit(
       'message',
