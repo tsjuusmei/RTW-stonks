@@ -7,19 +7,26 @@
     <link href="css/style.css" rel="stylesheet" />
     <title>StonksBot App</title>
   </head>
+
   <body>
-    <section class="join-container">
-      <header class="join-header">
+    <section class="joinSection">
+      <header>
         <h1>🚀StonksBot</h1>
       </header>
-      <main class="join-main">
+      <main>
         <form action="chat.html">
-          <div class="form-control">
-            <label for="username">Username</label>
-            <input id="username" name="username" placeholder="Enter stonkname..." required type="text" />
+          <div>
+            <label for="username">Enter your username:</label>
+            <input
+              id="username"
+              name="username"
+              placeholder="Enter stonkname..."
+              required
+              type="text"
+            />
           </div>
-          <div class="form-control">
-            <label for="room">Stonktype</label>
+          <!-- <div>
+            <label for="room">Room</label>
             <select id="room" name="room">
               <option value="Bitcoin">Bitcoin</option>
               <option value="Ethereum">Ethereum</option>
@@ -29,7 +36,7 @@
               <option value="Polkadot">Polkadot</option>
               <option value="Mauroom">Mauroom</option>
             </select>
-          </div>
+          </div> -->
           <button class="btn" type="submit">Go with us to the moon!</button>
         </form>
       </main>

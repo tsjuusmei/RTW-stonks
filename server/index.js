@@ -1,65 +1,49 @@
-const path = require('path');
-const http = require('http');
-const express = require('express');
-const socketio = require('socket.io');
-const formatMessage = require('./utils/messages');
-const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./utils/users');
-const app = express();
-const server = http.createServer(app);
-const io = socketio(server);
-const PORT = process.env.PORT || 3000;
+// Packages
+const path = require('path')
+const http = require('http')
+const express = require('express')
+const handlebars = require('express-handlebars')
+const session = require('express-session')
+const { initSocketIO } = require('./utils/socket')
+const app = express()
+const server = http.createServer(app)
+const router = require('./routes/router')
+
+// App variables
+const port = process.env.PORT || 3000
+const templates = path.join(__dirname, './views')
+const newSession = session({
+  secret: 'stonk-secret',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    secure: 'auto',
+  },
+})
 
 // Set static folder
-app.use(express.static(path.join(__dirname, './../public')));
+app
+  .set('view engine', 'hbs')
+  .set('views', __dirname + '/views')
+  .engine(
+    'hbs',
+    handlebars({
+      extname: 'hbs',
+      defaultLayout: 'main',
+    })
+  )
+  .use(express.static(path.join(__dirname, './../public')))
+  .use(
+    express.urlencoded({
+      extended: true,
+    })
+  )
+  .use(express.json())
+  .use(newSession)
+  .use(router)
 
-const botName = 'Godfather';
+initSocketIO(server, newSession)
 
-// Run when client connects
-io.on('connection', (socket) => {
-  socket.on('joinRoom', ({ username, room }) => {
-    const user = userJoin(socket.id, username, room);
-
-    socket.join(user.room);
-
-    // Welcome current user
-    socket.emit('message', formatMessage(botName, 'Buy GME stonks, to the moon 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀!'));
-
-    // Broadcast when a user connects
-    socket.broadcast
-      .to(user.room)
-      .emit('message', formatMessage(botName, `${user.username} has bought the stonks! rocket mAU🚀`));
-
-    // Send users and room info
-    io.to(user.room).emit('roomUsers', {
-      room: user.room,
-      users: getRoomUsers(user.room),
-    });
-  });
-
-  // Listen for chatMessage
-  socket.on('chatMessage', (msg) => {
-    const user = getCurrentUser(socket.id);
-
-    io.to(user.room).emit('message', formatMessage(user.username, msg));
-  });
-
-  // Runs when client disconnects
-  socket.on('disconnect', () => {
-    const user = userLeave(socket.id);
-
-    if (user) {
-      io.to(user.room).emit(
-        'message',
-        formatMessage(botName, `${user.username} has sold their stonks, he had paper hands! 😥`)
-      );
-
-      // Send users and room info
-      io.to(user.room).emit('roomUsers', {
-        room: user.room,
-        users: getRoomUsers(user.room),
-      });
-    }
-  });
-});
-
-server.listen(PORT, () => console.log(`Stonks running on port ${PORT}`));
+server.listen(port, () => {
+  console.log(`Stonks running on http://localhost:${port}`)
+})
